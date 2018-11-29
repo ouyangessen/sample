@@ -24,6 +24,7 @@ class SessionsController extends Controller
             'email' => 'required|email|max:255',
             'password' => 'required'
         ]);
+
         if (Auth::attempt($credentials, $request->has('remember'))) {
             if(Auth::user()->activated) {
                 session()->flash('success', '欢迎回来！');

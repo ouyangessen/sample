@@ -5,6 +5,7 @@ use App\Models\User;
 use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -54,7 +55,7 @@ class UsersController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
         ]);
 
         $this->sendEmailConfirmationTo($user);
@@ -67,9 +68,9 @@ class UsersController extends Controller
         $view = 'emails.confirm';
         $data = compact('user');
         $from = 'ouyangessen@163.com';
-        $name = 'Aufree';
+        $name = 'ouyangessen';
         $to = $user->email;
-        $subject = '感谢注册 Sample 应用！请确认你的邮箱。';
+        $subject = "感谢注册 Sample 应用！请确认你的邮箱。";
 
         Mail::send($view, $data, function ($message) use ($from, $name, $to, $subject) {
             $message->from($from, $name)->to($to)->subject($subject);
