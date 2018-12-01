@@ -35,6 +35,7 @@ class User extends Authenticatable
         return "http://www.gravatar.com/avatar/$hash?s=$size";
     }
 
+
     public static function boot()
     {
         parent::boot();
@@ -47,4 +48,10 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPassword($token));
     }
+
+    public function statuses(){
+        return $this->hasMany(Status::class);
+    }
+
+
 }
